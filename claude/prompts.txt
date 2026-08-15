@@ -1,0 +1,54 @@
+Read the "structures_and_ideas.md" file inside the folder "/home/cronomatita/Desktop/lavoro/sowelu/dlm": it contains a human-written description of a very large and complex project despite the small sized content.
+Use the nearby folder named "claude" to store all drafts, notes, the MEMORY, all reasonings, tasks and process steps trackings.
+
+Here follows a short additional explanation of the project:
+As stated in that "structures_and_ideas.md" file, this project is aimed to design both a DAO ("Decentralized Autonomous Organization") (using the "Solidity" programming language as the target to implement all the "Smart Contracts") and a Back-End server to deliver a very engineering-heavy ambitious project: in short, running one or more LLM ("Large Language Model"), especially Open Source ones, across multiple independent small devices rather than relying on a single mainframe / data center; all of that to have some cryptocurrency in return, to allow users to use some LLMs' capabilities without needing a full ordinary subscription and to allow users to contribute in sustaining Open Source LLMs with the hardware tools at their disposal. To do so, each node in the network (whether a mobile phone, a laptop PC, a PC or a server) offer their hardware (RAM, CPU, bandwidth, local storage, etc) to store the LLM's shards (pieces), run the partial computation to properly digest an user prompt, concur if possible in the DAO's voting round, and run/store part of the blockchain underneath that DAO. This project took inspiration from "Edge Computing", the Bitcoin structure and specifically its algorithm to coordinate all "miners"' work, "Federated Learning", "Swarm Intelligence" and DAOs.
+To ease the first development steps of this project, the mandatory constraint of having even the last computational steps (i.e., the ones that actually produce the resulting [textual?] output) is relaxed: a single node is allowed
+
+Run a journal in appropriately designed markdown files, tracking both the development steps and the implementation progresses. Update a "MEMORY.md" file with all the necessary information to quickly retrieve the context for all future sessions.
+Create a "skill" folder to store all useful skills for any subagent.
+
+Then, start with the very first steps of this project's implementation (and track, inside any appropriate section, all the references, PDF, scientific papers, and links used during the processes):
+- Perform both a market research and a scientific research to find out the Companies, if any, that are already offering a service similar to this project.
+- Perform a scientific research about dividing a Large Langue Model 's computation from a single, huge computational unit into a cluster of small, partial computations run onto multiple devices and machines (either in parallel or sequentially); then extend the research to ("latest", mostly) development about parallel computing of huge tasks and the re-aggregation of the partial results into a single, coherent and formally correct result.
+- Look for all Open Source "LLM"s that could be involved in this project and list them; in particular, highlight those whose model's "components" could be easily divided into pieces ("shards") such that the overall whole model computation could be split across multiple, autonomous, parallel, synchronized, independent devices. ("nodes") with heterogeneous hardware resources and, later, recombined into a single result.
+- Then, create a first implementation plan for the DAO and an implementation plan for the rest of the server,
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
