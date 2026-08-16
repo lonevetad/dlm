@@ -1,0 +1,14 @@
+{
+  "name": "dlm",
+  "version": "0.1.0",
+  "description": "Distributed Language Model DAO and backend prototype",
+  "private": true,
+  "scripts": {
+    "server": "node server/index.js",
+    "compile:dao": "solcjs --bin --abi contracts/DLMDAO.sol -o build/solidity"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "solc": "^0.8.25"
+  }
+}
