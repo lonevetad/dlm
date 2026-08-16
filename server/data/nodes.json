@@ -1,0 +1,35 @@
+{
+  "node-001": {
+    "wallet": "node-001",
+    "nodeId": "root-a",
+    "role": "root",
+    "ramMb": 16384,
+    "cpuTflops": 20,
+    "storageGb": 500,
+    "bandwidthMbps": 1000,
+    "status": "active",
+    "lastHeartbeat": 1786839890711
+  },
+  "node-002": {
+    "wallet": "node-002",
+    "nodeId": "normal-b",
+    "role": "normal",
+    "ramMb": 8192,
+    "cpuTflops": 10,
+    "storageGb": 200,
+    "bandwidthMbps": 500,
+    "status": "active",
+    "lastHeartbeat": 1786839890711
+  },
+  "node-003": {
+    "wallet": "node-003",
+    "nodeId": "normal-c",
+    "role": "normal",
+    "ramMb": 8192,
+    "cpuTflops": 8,
+    "storageGb": 200,
+    "bandwidthMbps": 400,
+    "status": "active",
+    "lastHeartbeat": 1786839890711
+  }
+}

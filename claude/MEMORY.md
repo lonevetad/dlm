@@ -62,12 +62,13 @@ The project goal is to:
 
 - [x] Read the repository brief and project ideas.
 - [x] Create the project memory and research working structure.
-- [ ] Market research: identify companies and services similar to DLM.
-- [ ] Scientific research: identify relevant parallelism and model-sharding techniques.
-- [ ] Open-source LLM shortlist: rank shard-friendly candidates.
-- [ ] DAO implementation plan: draft concept and contracts.
-- [ ] Server implementation plan: draft core architecture and services.
+- [x] Market research: identify companies and services similar to DLM.
+- [x] Scientific research: identify relevant parallelism and model-sharding techniques.
+- [x] Open-source LLM shortlist: rank shard-friendly candidates.
+- [x] DAO implementation plan: draft concept and contracts.
+- [x] Server implementation plan: draft core architecture and services.
+- [x] Execution DAG prototype: conceptually define the scheduler and shard dependency model.
 
 ## Next session focus
 
-The next step is to produce a technically grounded shortlist of similar companies and research areas, then translate that into a first implementation plan for both the DAO and the server architecture.
+The next step is to convert the architecture plan into a concrete prototype milestone: shard metadata, node capability scoring, execution DAG sequencing, and a v2 scheduler prototype with a single final aggregation node.

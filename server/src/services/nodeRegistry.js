@@ -1,4 +1,18 @@
-const nodes = new Map();
+const { readJson, writeJson } = require('../store');
+
+const STORAGE_FILE = 'nodes.json';
+let nodes = new Map();
+
+function loadNodes() {
+  const data = readJson(STORAGE_FILE, {});
+  nodes = new Map(Object.entries(data));
+}
+
+function saveNodes() {
+  writeJson(STORAGE_FILE, Object.fromEntries(nodes));
+}
+
+loadNodes();
 
 function registerNode({ wallet, nodeId, role, ramMb, cpuTflops, storageGb, bandwidthMbps }) {
   const normalizedRole = role === 'root' ? 'root' : 'normal';
@@ -15,6 +29,7 @@ function registerNode({ wallet, nodeId, role, ramMb, cpuTflops, storageGb, bandw
   };
 
   nodes.set(wallet, node);
+  saveNodes();
   return node;
 }
 
