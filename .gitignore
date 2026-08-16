@@ -2,3 +2,15 @@ node_modules/
 build/
 .DS_Store
 npm-debug.log*
+
+# runtime-only data folders and files
+**/data/
+**/data/**
+**/data
+
+data/
+data/**
+
+# keep explicit runtime data directories out of version control
+server/data/
+server/data/**

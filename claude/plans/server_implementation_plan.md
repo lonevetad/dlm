@@ -144,14 +144,16 @@ Suggested tables or collections:
 
 ## Reference technology stack
 
-Suggested initial stack:
+Updated stack for the current phase:
 
-- backend: Node.js or Python FastAPI
-- database: PostgreSQL
-- cache: Redis
-- message broker: RabbitMQ or Kafka
+- backend: Node.js + Express in TypeScript
+- database: MariaDB local relational database
+- configuration: environment variables loaded from `.env`
+- cache: optional Redis later, not required for the first TypeScript refactor
+- message broker: optional RabbitMQ or Kafka deferred to later milestones
 - blockchain: Solidity smart contracts with EVM-compatible environment
-- model orchestration: Python + PyTorch/Hugging Face tooling
+- model orchestration: Python + PyTorch/Hugging Face tooling in later phases
+- identity validation: Ethers.js DAO reads before registration and login flows
 
 ## Phase plan
 

@@ -31,6 +31,8 @@ Start the first implementation phase by validating the project thesis, identifyi
 - Prototype the network with a smaller, shard-friendly model such as Gemma, TinyLlama, or Llama-class models.
 - Use a DAG scheduler for shard execution, with root nodes coordinating task assignment and validation.
 - Keep on-chain state minimal but auditable, while off-chain components handle execution complexity and local storage.
+- Refactor the backend to TypeScript and use MariaDB as the canonical relational database for user, node, prompt, and execution-plan records.
+- Validate users and nodes against the Solidity DAO before accepting them into the backend processes.
 
 ## References
 

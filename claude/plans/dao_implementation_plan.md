@@ -189,6 +189,8 @@ Functions:
 - Keep token economics simple in v1: one token unit for prompt fee and node reward accounting.
 - Use off-chain metadata and encrypted logs for prompt payloads when needed.
 - Keep all heavy execution maps and graphs in the backend database, with only hashes or IDs committed on-chain.
+- The backend must enforce DAO membership before allowing user registration, node registration, and prompt submission.
+- The Solidity contract is the source of truth for wallet ownership, node enrollment, and governance state.
 
 ## Risks and open issues
 

@@ -68,7 +68,18 @@ The project goal is to:
 - [x] DAO implementation plan: draft concept and contracts.
 - [x] Server implementation plan: draft core architecture and services.
 - [x] Execution DAG prototype: conceptually define the scheduler and shard dependency model.
+- [x] Refactor backend to TypeScript.
+- [x] Add MariaDB-ready persistence layer and environment-driven configuration.
+- [x] Enforce DAO-backed user and node validation before registration and prompt submission.
+
+## Current implementation state
+
+- Backend is now TypeScript-based and can run via `ts-node`.
+- Database configuration is environment-driven through `.env` variables.
+- MariaDB schema is codified in [server/src/db/schema.sql](../server/src/db/schema.sql).
+- Solidity DAO remains the authoritative registry for wallet-enabled identities and node enrollment.
+- Prompt and execution flows are now structured around lifecycle services and model schedulers.
 
 ## Next session focus
 
-The next step is to convert the architecture plan into a concrete prototype milestone: shard metadata, node capability scoring, execution DAG sequencing, and a v2 scheduler prototype with a single final aggregation node.
+The next step is to align the full backend with a live MariaDB instance, add real DAO contract deployment wiring, and evolve the scheduler into a stricter model-aware orchestration service with richer node reputation and execution tracking.
