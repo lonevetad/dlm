@@ -6,11 +6,14 @@ import path from "node:path";
 import { PromptArtifactService } from "../server/src/services/PromptArtifactService.ts";
 
 const root = path.resolve(process.cwd(), "server", "data", "test-artifacts");
-const service = new PromptArtifactService(root);
 
 test("writes prompt, response and elected node files under the user folder only", () => {
   const wallet = "0xuser123";
   const promptId = "p_test_001";
+
+  // Create a per-test subfolder so each test stores artifacts separately
+  const testRoot = path.resolve(root, "prompt-artifact-service.test", promptId);
+  const service = new PromptArtifactService(testRoot);
 
   service.writePromptContent(wallet, promptId, "hello from user");
   service.writeResponse(wallet, promptId, "hello back");
@@ -18,10 +21,15 @@ test("writes prompt, response and elected node files under the user folder only"
     { wallet: "0xnode1", nodeId: "n1" },
   ]);
 
-  const promptPath = path.join(root, wallet, "prompts", `${promptId}.txt`);
-  const responsePath = path.join(root, wallet, "responses", `${promptId}.txt`);
+  const promptPath = path.join(testRoot, wallet, "prompts", `${promptId}.txt`);
+  const responsePath = path.join(
+    testRoot,
+    wallet,
+    "responses",
+    `${promptId}.txt`,
+  );
   const nodesPath = path.join(
-    root,
+    testRoot,
     wallet,
     "elected-nodes",
     `${promptId}.json`,

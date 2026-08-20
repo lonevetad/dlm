@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from "express";
-import { ensureDatabaseSchema } from "./src/db/mariaDb.ts";
+import { ensureDatabaseSchema, connectDatabase } from "./src/db/mariaDb.ts";
 import { env } from "./src/config/env.ts";
 import { DaoIdentityService } from "./src/services/DaoIdentityService.ts";
 import {
@@ -149,8 +149,44 @@ app.get("/api/models", (_req: Request, res: Response) => {
 });
 
 export async function startServer() {
+  await connectDatabase();
   await ensureDatabaseSchema();
-  app.listen(env.port, () => {
+  server = app.listen(env.port, () => {
     console.log(`DLM server running on http://localhost:${env.port}`);
   });
 }
+
+let server: any = null;
+
+export async function stopServer() {
+  try {
+    if (server && server.close) {
+      await new Promise<void>((resolve) => server.close(() => resolve()));
+    }
+  } finally {
+    await disconnectDatabase();
+  }
+}
+
+// graceful shutdown
+import { disconnectDatabase } from "./src/db/mariaDb.ts";
+
+process.on("SIGINT", async () => {
+  console.log("SIGINT received, shutting down...");
+  try {
+    await disconnectDatabase();
+  } catch (e) {
+    // ignore
+  }
+  process.exit(0);
+});
+
+process.on("SIGTERM", async () => {
+  console.log("SIGTERM received, shutting down...");
+  try {
+    await disconnectDatabase();
+  } catch (e) {
+    // ignore
+  }
+  process.exit(0);
+});

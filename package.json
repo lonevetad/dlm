@@ -6,7 +6,12 @@
   "type": "module",
   "scripts": {
     "server": "node server/index.js",
-    "compile:dao": "solcjs --bin --abi contracts/DLMDAO.sol -o build/solidity"
+    "compile:dao": "solcjs --bin --abi contracts/DLMDAO.sol -o build/solidity",
+    "test": "node --test",
+    "test:mock": "DLM_DB_MODE=mock DLM_TEST_DATA_DIR=server/data/test-artifacts/local node --test",
+    "test:integration": "DLM_DB_MODE=mariadb node --test",
+    "install-sqlite": "npm i better-sqlite3 --no-save",
+    "test:sqlite": "npm run install-sqlite --silent && DLM_DB_MODE=sqlite node --test"
   },
   "dependencies": {
     "dotenv": "^17.4.2",

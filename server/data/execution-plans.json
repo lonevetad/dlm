@@ -466,5 +466,1097 @@
     ],
     "nodeSetHash": "dab2f97aacb3bde35eb5d106468e7795de45fbb50a6595514bee7f8e1b7f4c15",
     "createdAt": 1786840029933
+  },
+  "class-check-001": {
+    "planId": "plan_1786840279970",
+    "promptId": "class-check-001",
+    "modelVersion": "gemma-2b",
+    "finalAggregator": {
+      "wallet": "0xabc",
+      "nodeId": "root-a",
+      "role": "root"
+    },
+    "shards": [
+      {
+        "id": "prompt_embedding",
+        "stageName": "prompt_embedding",
+        "requiredRamMb": 512,
+        "requiredCpuTflops": 1,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-prompt_embedding",
+        "assignedNode": {
+          "wallet": "0xabc",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xdef",
+          "nodeId": "normal-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_01",
+        "stageName": "layer_block_01",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "prompt_embedding"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_01",
+        "assignedNode": {
+          "wallet": "0xabc",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xdef",
+          "nodeId": "normal-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_02",
+        "stageName": "layer_block_02",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "layer_block_01"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_02",
+        "assignedNode": {
+          "wallet": "0xabc",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xdef",
+          "nodeId": "normal-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "attention_merge",
+        "stageName": "attention_merge",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 12,
+        "dependencies": [
+          "layer_block_02"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-attention_merge",
+        "assignedNode": {
+          "wallet": "0xabc",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xdef",
+          "nodeId": "normal-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "output_projection",
+        "stageName": "output_projection",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [
+          "attention_merge"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-output_projection",
+        "assignedNode": {
+          "wallet": "0xabc",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xdef",
+          "nodeId": "normal-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "final_output_node",
+        "stageName": "final_output_node",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 4,
+        "requiredBandwidthMbps": 20,
+        "dependencies": [
+          "output_projection"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-final_output_node",
+        "assignedNode": {
+          "wallet": "0xabc",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xdef",
+          "nodeId": "normal-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      }
+    ],
+    "nodeSetHash": "dab2f97aacb3bde35eb5d106468e7795de45fbb50a6595514bee7f8e1b7f4c15",
+    "createdAt": 1786840279970
+  },
+  "live-verify-002": {
+    "planId": "plan_1786840319297",
+    "promptId": "live-verify-002",
+    "modelVersion": "gemma-2b",
+    "finalAggregator": {
+      "wallet": "0xaaa",
+      "nodeId": "node-a",
+      "role": "root"
+    },
+    "shards": [
+      {
+        "id": "prompt_embedding",
+        "stageName": "prompt_embedding",
+        "requiredRamMb": 512,
+        "requiredCpuTflops": 1,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-prompt_embedding",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_01",
+        "stageName": "layer_block_01",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "prompt_embedding"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_01",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_02",
+        "stageName": "layer_block_02",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "layer_block_01"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_02",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "attention_merge",
+        "stageName": "attention_merge",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 12,
+        "dependencies": [
+          "layer_block_02"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-attention_merge",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "output_projection",
+        "stageName": "output_projection",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [
+          "attention_merge"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-output_projection",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "final_output_node",
+        "stageName": "final_output_node",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 4,
+        "requiredBandwidthMbps": 20,
+        "dependencies": [
+          "output_projection"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-final_output_node",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      }
+    ],
+    "nodeSetHash": "701b37eaf527b671fe5669f3235d8d3c79aac49b785fdd156a08ac2e4b7af83e",
+    "createdAt": 1786840319298
+  },
+  "p_1786840620823": {
+    "planId": "plan_1786840620824",
+    "promptId": "p_1786840620823",
+    "modelVersion": "gemma-2b",
+    "finalAggregator": {
+      "wallet": "0xaaa",
+      "nodeId": "root-a",
+      "role": "root"
+    },
+    "shards": [
+      {
+        "id": "prompt_embedding",
+        "stageName": "prompt_embedding",
+        "requiredRamMb": 512,
+        "requiredCpuTflops": 1,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-prompt_embedding",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_01",
+        "stageName": "layer_block_01",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "prompt_embedding"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_01",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_02",
+        "stageName": "layer_block_02",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "layer_block_01"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_02",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "attention_merge",
+        "stageName": "attention_merge",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 12,
+        "dependencies": [
+          "layer_block_02"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-attention_merge",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "output_projection",
+        "stageName": "output_projection",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [
+          "attention_merge"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-output_projection",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "final_output_node",
+        "stageName": "final_output_node",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 4,
+        "requiredBandwidthMbps": 20,
+        "dependencies": [
+          "output_projection"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-final_output_node",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      }
+    ],
+    "nodeSetHash": "701b37eaf527b671fe5669f3235d8d3c79aac49b785fdd156a08ac2e4b7af83e",
+    "createdAt": 1786840620824
+  },
+  "live-final-001": {
+    "planId": "plan_1786840666171",
+    "promptId": "live-final-001",
+    "modelVersion": "gemma-2b",
+    "finalAggregator": {
+      "wallet": "0xaaa",
+      "nodeId": "node-a",
+      "role": "root"
+    },
+    "shards": [
+      {
+        "id": "prompt_embedding",
+        "stageName": "prompt_embedding",
+        "requiredRamMb": 512,
+        "requiredCpuTflops": 1,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-prompt_embedding",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_01",
+        "stageName": "layer_block_01",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "prompt_embedding"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_01",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_02",
+        "stageName": "layer_block_02",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "layer_block_01"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_02",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "attention_merge",
+        "stageName": "attention_merge",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 12,
+        "dependencies": [
+          "layer_block_02"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-attention_merge",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "output_projection",
+        "stageName": "output_projection",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [
+          "attention_merge"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-output_projection",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "final_output_node",
+        "stageName": "final_output_node",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 4,
+        "requiredBandwidthMbps": 20,
+        "dependencies": [
+          "output_projection"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-final_output_node",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      }
+    ],
+    "nodeSetHash": "701b37eaf527b671fe5669f3235d8d3c79aac49b785fdd156a08ac2e4b7af83e",
+    "createdAt": 1786840666171
+  },
+  "p_1755343337149": {
+    "planId": "plan_1786840684008",
+    "promptId": "p_1755343337149",
+    "modelVersion": "gemma-2b",
+    "finalAggregator": {
+      "wallet": "0xaaa",
+      "nodeId": "node-a",
+      "role": "root"
+    },
+    "shards": [
+      {
+        "id": "prompt_embedding",
+        "stageName": "prompt_embedding",
+        "requiredRamMb": 512,
+        "requiredCpuTflops": 1,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-prompt_embedding",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_01",
+        "stageName": "layer_block_01",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "prompt_embedding"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_01",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_02",
+        "stageName": "layer_block_02",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "layer_block_01"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_02",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "attention_merge",
+        "stageName": "attention_merge",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 12,
+        "dependencies": [
+          "layer_block_02"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-attention_merge",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "output_projection",
+        "stageName": "output_projection",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [
+          "attention_merge"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-output_projection",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "final_output_node",
+        "stageName": "final_output_node",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 4,
+        "requiredBandwidthMbps": 20,
+        "dependencies": [
+          "output_projection"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-final_output_node",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "node-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      }
+    ],
+    "nodeSetHash": "701b37eaf527b671fe5669f3235d8d3c79aac49b785fdd156a08ac2e4b7af83e",
+    "createdAt": 1786840684009
+  },
+  "p_1786841599674": {
+    "planId": "plan_1786841599675",
+    "promptId": "p_1786841599674",
+    "modelVersion": "gemma-2b",
+    "finalAggregator": {
+      "wallet": "0xaaa",
+      "nodeId": "root-a",
+      "role": "root"
+    },
+    "shards": [
+      {
+        "id": "prompt_embedding",
+        "stageName": "prompt_embedding",
+        "requiredRamMb": 512,
+        "requiredCpuTflops": 1,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-prompt_embedding",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_01",
+        "stageName": "layer_block_01",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "prompt_embedding"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_01",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_02",
+        "stageName": "layer_block_02",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "layer_block_01"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_02",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "attention_merge",
+        "stageName": "attention_merge",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 12,
+        "dependencies": [
+          "layer_block_02"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-attention_merge",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "output_projection",
+        "stageName": "output_projection",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [
+          "attention_merge"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-output_projection",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "final_output_node",
+        "stageName": "final_output_node",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 4,
+        "requiredBandwidthMbps": 20,
+        "dependencies": [
+          "output_projection"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-final_output_node",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      }
+    ],
+    "nodeSetHash": "701b37eaf527b671fe5669f3235d8d3c79aac49b785fdd156a08ac2e4b7af83e",
+    "createdAt": 1786841599675
+  },
+  "p_1786841720904": {
+    "planId": "plan_1786841720905",
+    "promptId": "p_1786841720904",
+    "modelVersion": "gemma-2b",
+    "finalAggregator": {
+      "wallet": "0xaaa",
+      "nodeId": "root-a",
+      "role": "root"
+    },
+    "shards": [
+      {
+        "id": "prompt_embedding",
+        "stageName": "prompt_embedding",
+        "requiredRamMb": 512,
+        "requiredCpuTflops": 1,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-prompt_embedding",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_01",
+        "stageName": "layer_block_01",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "prompt_embedding"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_01",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "layer_block_02",
+        "stageName": "layer_block_02",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 3,
+        "requiredBandwidthMbps": 15,
+        "dependencies": [
+          "layer_block_01"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-layer_block_02",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "attention_merge",
+        "stageName": "attention_merge",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 12,
+        "dependencies": [
+          "layer_block_02"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-attention_merge",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "output_projection",
+        "stageName": "output_projection",
+        "requiredRamMb": 1024,
+        "requiredCpuTflops": 2,
+        "requiredBandwidthMbps": 10,
+        "dependencies": [
+          "attention_merge"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-output_projection",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      },
+      {
+        "id": "final_output_node",
+        "stageName": "final_output_node",
+        "requiredRamMb": 2048,
+        "requiredCpuTflops": 4,
+        "requiredBandwidthMbps": 20,
+        "dependencies": [
+          "output_projection"
+        ],
+        "replicationFactor": 1,
+        "modelVersion": "gemma-2b",
+        "shardId": "gemma-2b-final_output_node",
+        "assignedNode": {
+          "wallet": "0xaaa",
+          "nodeId": "root-a",
+          "role": "root"
+        },
+        "backupNode": {
+          "wallet": "0xbbb",
+          "nodeId": "node-b",
+          "role": "normal"
+        },
+        "status": "queued"
+      }
+    ],
+    "nodeSetHash": "701b37eaf527b671fe5669f3235d8d3c79aac49b785fdd156a08ac2e4b7af83e",
+    "createdAt": 1786841720905
   }
 }

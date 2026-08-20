@@ -14,3 +14,6 @@ data/**
 # keep explicit runtime data directories out of version control
 server/data/
 server/data/**
+# ignore test-artifact subfolders created by tests
+/server/data/test-artifacts/
+/server/data/test-artifacts/**

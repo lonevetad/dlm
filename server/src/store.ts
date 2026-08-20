@@ -1,7 +1,9 @@
 import fs from "fs";
 import path from "path";
 
-const DATA_DIR = path.resolve(process.cwd(), "data");
+const DATA_DIR = process.env.DLM_TEST_DATA_DIR
+  ? path.resolve(process.env.DLM_TEST_DATA_DIR)
+  : path.resolve(process.cwd(), "data");
 
 export function ensureDataDir(): void {
   if (!fs.existsSync(DATA_DIR)) {

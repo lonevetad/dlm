@@ -1,12 +1,30 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import path from "node:path";
+import fs from "node:fs";
 
-import { ExecutionLifecycleService } from "../server/src/services/ExecutionLifecycleService.ts";
-import { ExecutionPlanService } from "../server/src/services/ExecutionPlanService.ts";
-import { PromptLifecycleService } from "../server/src/services/promptLifecycle.ts";
+// Configure test-mode before loading server modules
+const base = path.resolve(process.cwd(), "server", "data", "test-artifacts");
+const testRoot = path.resolve(base, "execution-lifecycle.test");
+fs.mkdirSync(testRoot, { recursive: true });
+process.env.DLM_TEST_DATA_DIR = testRoot;
+process.env.DLM_DB_MODE = "mock";
+
+// dynamically import server modules after environment is configured
+const { ExecutionLifecycleService } =
+  await import("../server/src/services/ExecutionLifecycleService.ts");
+const { ExecutionPlanService } =
+  await import("../server/src/services/ExecutionPlanService.ts");
+const { PromptLifecycleService } =
+  await import("../server/src/services/promptLifecycle.ts");
+const { PromptArtifactService } =
+  await import("../server/src/services/PromptArtifactService.ts");
 
 const executionPlanService = new ExecutionPlanService();
-const promptLifecycleService = new PromptLifecycleService();
+const promptArtifactService = new PromptArtifactService(testRoot);
+const promptLifecycleService = new PromptLifecycleService(
+  promptArtifactService,
+);
 const lifecycle = new ExecutionLifecycleService({
   executionPlanService,
   promptLifecycleService,
@@ -16,7 +34,7 @@ test("creates and advances execution lifecycle states", async () => {
   const prompt = await promptLifecycleService.submitPrompt({
     userId: "alice",
     wallet: "0x123",
-    promptText: "hello world",
+    promptText: "What is the recipe for the brownie cake?",
     promptHash: "abc123",
   });
 

@@ -1,0 +1,77 @@
+name: CI
+
+on:
+    push:
+        branches: [main, v1]
+    pull_request:
+        branches: [main, v1]
+
+jobs:
+        test-mariadb:
+                runs-on: ubuntu-latest
+                services:
+                        mariadb:
+                                image: mariadb:10.11
+                                env:
+                                        MYSQL_ROOT_PASSWORD: rootpass
+                                        MYSQL_DATABASE: dlm
+                                        MYSQL_USER: dlm_user
+                                        MYSQL_PASSWORD: dlm_password
+                                ports:
+                                        - 3306:3306
+                                options: >-
+                                        --health-cmd='mysqladmin ping -h localhost -P 3306 -u root -prootpass'
+                                        --health-interval=5s --health-timeout=5s --health-retries=10
+
+                steps:
+                        - uses: actions/checkout@v4
+
+                        - name: Use Node.js
+                            uses: actions/setup-node@v4
+                            with:
+                                    node-version: "20"
+
+                        - name: Install dependencies
+                            run: npm ci
+
+                                                - name: Install better-sqlite3 for sqlite job
+                                                        if: always()
+                                                        run: |
+                                                                        if [ "$DLM_DB_MODE" = "sqlite" ]; then
+                                                                                npm i better-sqlite3 --no-save
+                                                                        fi
+
+                        - name: Wait for MariaDB to be ready
+                            run: |
+                                    for i in {1..60}; do
+                                        mysqladmin ping -h 127.0.0.1 -P 3306 -u root -prootpass &>/dev/null && break || sleep 1
+                                    done
+
+                        - name: Run tests against transient MariaDB
+                            env:
+                                    DB_HOST: 127.0.0.1
+                                    DB_PORT: 3306
+                                    DB_NAME: dlm
+                                    DB_USER: dlm_user
+                                    DB_PASSWORD: dlm_password
+                                    DLM_DB_MODE: "mariadb"
+                            run: node --test
+
+        test-sqlite:
+                runs-on: ubuntu-latest
+                steps:
+                        - uses: actions/checkout@v4
+
+                        - name: Use Node.js
+                            uses: actions/setup-node@v4
+                            with:
+                                    node-version: "20"
+
+                        - name: Install dependencies
+                            run: npm ci
+
+                        - name: Run tests against sqlite
+                          env:
+                                  DLM_DB_MODE: "sqlite"
+                          run: |
+                                  npm run test

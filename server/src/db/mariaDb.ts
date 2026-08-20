@@ -1,99 +1,54 @@
-import mariadb from "mariadb";
-import type { Pool, PoolConnection } from "mariadb";
-import { env } from "../config/env.ts";
+import { normalizeMode, DbMode } from "./DbClient.ts";
+import type { IDbClient } from "./DbClient.ts";
+import { JsonDbClient } from "./JsonDbClient.ts";
+import { MariaDbClient } from "./MariaDbClient.ts";
+import { InMemoryDbClient } from "./InMemoryDbClient.ts";
+import { SqliteDbClient } from "./SqliteDbClient.ts";
 
-export const pool: Pool = mariadb.createPool({
-  host: env.dbHost,
-  port: env.dbPort,
-  user: env.dbUser,
-  password: env.dbPassword,
-  database: env.dbName,
-  connectionLimit: env.dbConnectionLimit,
-  multipleStatements: true,
-  charset: "utf8mb4",
-});
+const mode = normalizeMode(
+  process.argv.find((a) => a.startsWith("--db-mode="))?.split("=")[1] ??
+    process.env.DLM_DB_MODE ??
+    process.env.DB_MODE ??
+    (process.env.DLM_TEST_MODE === "1" ? DbMode.Mock : DbMode.Mariadb),
+);
 
-let schemaReady = false;
+export const DB_MODE = mode;
+export const IS_MOCK = mode === DbMode.Mock;
+
+let client: IDbClient;
+switch (mode) {
+  case DbMode.Mock:
+    client = new JsonDbClient();
+    break;
+  case DbMode.Sqlite:
+    client = new SqliteDbClient();
+    break;
+  case DbMode.Memory:
+    client = new InMemoryDbClient();
+    break;
+  default:
+    client = new MariaDbClient();
+}
 
 export async function ensureDatabaseSchema(): Promise<void> {
-  if (schemaReady) {
-    return;
-  }
-
-  try {
-    const connection = await pool.getConnection();
-    try {
-      await connection.query(`
-        CREATE TABLE IF NOT EXISTS users (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          wallet VARCHAR(128) NOT NULL UNIQUE,
-          user_id VARCHAR(128) NOT NULL,
-          username VARCHAR(128) NOT NULL DEFAULT 'anonymous',
-          created_at BIGINT NOT NULL
-        );
-      `);
-
-      await connection.query(`
-        CREATE TABLE IF NOT EXISTS nodes (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          wallet VARCHAR(128) NOT NULL UNIQUE,
-          node_id VARCHAR(128) NOT NULL,
-          role VARCHAR(32) NOT NULL,
-          ram_mb BIGINT NOT NULL,
-          cpu_tflops DOUBLE NOT NULL,
-          storage_gb BIGINT NOT NULL,
-          bandwidth_mbps DOUBLE NOT NULL,
-          status VARCHAR(32) NOT NULL DEFAULT 'active',
-          last_heartbeat BIGINT NOT NULL,
-          created_at BIGINT NOT NULL
-        );
-      `);
-
-      await connection.query(`
-        CREATE TABLE IF NOT EXISTS prompts (
-          id VARCHAR(128) PRIMARY KEY,
-          user_id VARCHAR(128) NOT NULL,
-          wallet VARCHAR(128) NOT NULL,
-          prompt_text TEXT NOT NULL,
-          prompt_hash VARCHAR(255) NOT NULL,
-          status VARCHAR(32) NOT NULL DEFAULT 'submitted',
-          assigned_node_set_hash VARCHAR(255) NULL,
-          created_at BIGINT NOT NULL
-        );
-      `);
-
-      await connection.query(`
-        CREATE TABLE IF NOT EXISTS execution_plans (
-          id VARCHAR(128) PRIMARY KEY,
-          prompt_id VARCHAR(128) NOT NULL,
-          model_version VARCHAR(128) NOT NULL,
-          node_set_hash VARCHAR(255) NOT NULL,
-          plan_json JSON NOT NULL,
-          created_at BIGINT NOT NULL
-        );
-      `);
-
-      schemaReady = true;
-    } finally {
-      connection.release();
-    }
-  } catch (error) {
-    console.warn(
-      "MariaDB schema setup skipped or failed:",
-      (error as Error).message,
-    );
-    throw error;
-  }
+  if (client.connect) await client.connect();
+  if (client.ensureSchema) return client.ensureSchema();
+  return Promise.resolve();
 }
 
 export async function withConnection<T>(
-  handler: (connection: PoolConnection) => Promise<T>,
+  handler: (conn: any) => Promise<T>,
 ): Promise<T> {
-  await ensureDatabaseSchema();
-  const connection = await pool.getConnection();
-  try {
-    return await handler(connection);
-  } finally {
-    connection.release();
-  }
+  if (client.connect) await client.connect();
+  return client.withConnection(handler as any);
+}
+
+export async function connectDatabase(): Promise<void> {
+  if (client.connect) return client.connect();
+  return Promise.resolve();
+}
+
+export async function disconnectDatabase(): Promise<void> {
+  if (client.disconnect) return client.disconnect();
+  return Promise.resolve();
 }

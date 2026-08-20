@@ -7,7 +7,7 @@ import type { NodeRecord, PromptRecord, PromptStatus } from "../types.ts";
 const promptRepository = new PromptRepository();
 const userRepository = new UserRepository();
 const nodeRepository = new NodeRepository();
-const promptArtifactService = new PromptArtifactService();
+const defaultPromptArtifactService = new PromptArtifactService();
 
 export class PromptLifecycleService {
   private readonly promptRepository: PromptRepository;
@@ -15,11 +15,12 @@ export class PromptLifecycleService {
   private readonly nodeRepository: NodeRepository;
   private readonly promptArtifactService: PromptArtifactService;
 
-  constructor() {
+  constructor(promptArtifactService?: PromptArtifactService) {
     this.promptRepository = promptRepository;
     this.userRepository = userRepository;
     this.nodeRepository = nodeRepository;
-    this.promptArtifactService = promptArtifactService;
+    this.promptArtifactService =
+      promptArtifactService ?? defaultPromptArtifactService;
   }
 
   async registerUser({

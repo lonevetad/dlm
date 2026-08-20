@@ -130,3 +130,33 @@ This project is meant to be part of the "Norta DeSyCo OÜ" Company ( https://nor
 This project is also meant to be fully incorporated with Avanzo's project "SIGNET-ETCH" ( https://github.com/SoweluAvanzo/signet-etch ) into a single, coherent future project.
 
 I, Marco Ottina, deeply thanks Alex and Sowelu for all the support during the beginning of this project's development and each following steps.
+
+## Local test artifacts
+
+Tests write temporary artifacts under `server/data/test-artifacts/` inside per-test subfolders. These folders are intentionally ignored by `.gitignore` to avoid committing generated files.
+
+Updated tests that use per-test artifact folders:
+
+- [tests/prompt-artifact-service.test.ts](tests/prompt-artifact-service.test.ts)
+- [tests/execution-lifecycle.test.ts](tests/execution-lifecycle.test.ts)
+- [tests/validators-regression.test.ts](tests/validators-regression.test.ts)
+
+Inspect `server/data/test-artifacts/` when running tests locally.
+
+### CI with transient MariaDB
+
+For full integration tests we provide a GitHub Actions example that runs a transient MariaDB container and executes the test suite against it. See [.github/workflows/ci.yml](.github/workflows/ci.yml).
+
+DB selection: use the `DLM_DB_MODE` environment variable (or `--db-mode=` CLI flag) to pick the backend when running tests locally. Example values:
+
+- `mock` — lightweight JSON-backed mock DB (local unit tests)
+- `mariadb` — real MariaDB instance (CI/integration)
+
+DB client implementations
+
+- `JsonDbClient` — file-backed JSON mock (`DLM_DB_MODE=mock`).
+- `MariaDbClient` — real MariaDB pool + schema creator (`DLM_DB_MODE=mariadb`).
+- `SqliteDbClient` — SQLite in-memory for local SQL-like tests (`DLM_DB_MODE=sqlite`, requires `better-sqlite3`).
+- `InMemoryDbClient` — volatile in-memory mock good for unit tests (`DLM_DB_MODE=memory`).
+
+If you prefer running integration tests locally, you can run MariaDB in Docker with the same environment variables used in CI and execute `node --test`.
